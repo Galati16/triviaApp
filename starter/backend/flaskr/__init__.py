@@ -37,14 +37,12 @@ def create_app(test_config=None):
     
   def psql_obj_as_list_dict(selections):
       selection_list_of_dict = [selection.format() for selection in selections]
-      print(selection_list_of_dict)
       return selection_list_of_dict
     
   def get_categories_object():
       categories = Category.query.all()
       categories_dict = [category.format() for category in categories]
       categories_formatted = {category['id']:category['type'] for category in categories_dict}
-      
       return categories_formatted
 
   '''
@@ -132,7 +130,6 @@ def create_app(test_config=None):
         #depending on the body of the request:
         if search != None:
             #a) search for term
-            print(search)
             questions = Question.query.order_by(Question.id).filter(Question.question.ilike('% {} %'.format(search)))
             questions_pagenated = paginate_questions(request,questions)
             return jsonify({
@@ -152,7 +149,6 @@ def create_app(test_config=None):
             )
             #FERFI: wie none abfragen?
             question.insert()
-            print(question.format())
 
             return jsonify({
               'success': True         
@@ -173,7 +169,7 @@ def create_app(test_config=None):
    
   @app.route('/categories/<int:id>/questions', methods = ['GET'])
   def get_questions_for_specific_category(id):
-        #print(id)
+
            current_category = Category.query.filter(Category.id==id).one_or_none()
            if current_category is None:
               abort(404)
@@ -205,7 +201,6 @@ def create_app(test_config=None):
   def get_next_question():
       try:
         body = request.get_json()
-        print(body)
         quizCategory= body.get('quiz_category', None)
         id_used_questions= body.get('previous_questions', None)
         if quizCategory['id'] != 0:

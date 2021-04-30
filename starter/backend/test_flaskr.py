@@ -105,7 +105,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 422)
     
     def test_search_questions(self): 
-        print('now search:')
         res = self.client().post('/questions', json={'searchTerm':'is'})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
@@ -126,7 +125,6 @@ class TriviaTestCase(unittest.TestCase):
     def test_get_next_question(self):
        res = self.client().post('/quizzes', json={'previous_questions': [5,9], 'quiz_category': {'type': 'Art', 'id': '2'}})
        data = json.loads(res.data)
-       print(data)
        self.assertEqual(res.status_code, 200)
        self.assertEqual(data['success'],True)
        self.assertEqual(data['question']['category'],2)       
@@ -145,12 +143,12 @@ class TriviaTestCase(unittest.TestCase):
 
     ###### Test endpoint:get('/categories/${id}')
     def test_delete_question(self):
-         res = self.client().delete('/questions/20')
+         res = self.client().delete('/questions/21')
          data = json.loads(res.data)
-         question = Question.query.filter(Question.id == 20).one_or_none()
+         question = Question.query.filter(Question.id == 21).one_or_none()
          self.assertEqual(res.status_code, 200)
          self.assertEqual(data['success'],True)
-         self.assertEqual(data['removed_id'],20)
+         self.assertEqual(data['removed_id'],21)
          self.assertEqual(question, None) 
     
     def test_delete_question_fail(self):
