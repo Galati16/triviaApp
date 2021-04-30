@@ -132,7 +132,9 @@ The first time you run the tests, omit the dropdb command.
 
 ### GET '/questions?page=${integer}'
 - Fetches a paginated set of questions, a total number of questions, all categories and current category string. 
-- Request Arguments: page - integer
+- Request Arguments: page
+``` '/questions?page=1'```
+- integer
 - Returns: An object with 10 paginated questions, total questions, object including all categories, and current category string
 ```{
     'questions': [
@@ -158,6 +160,7 @@ The first time you run the tests, omit the dropdb command.
 ### GET '/categories/${id}/questions'
 - Fetches questions for a cateogry specified by id request argument 
 - Request Arguments: id - integer
+```'/categories/1/questions'```
 - Returns: An object with questions for the specified category, total questions, and current category string 
 ```{
     'questions': [
@@ -179,6 +182,7 @@ The first time you run the tests, omit the dropdb command.
 - Request Body: 
 {'previous_questions':  an array of question id's such as [1, 4, 20, 15]
 'quiz_category': a string of the current category }
+```'/quizzes', json={'previous_questions': [5,9], 'quiz_category': {'type': 'Art', 'id': '2'}}```
 - Returns: a single new question object 
 ```{
     'question': {
@@ -194,30 +198,15 @@ The first time you run the tests, omit the dropdb command.
 ### DELETE '/questions/${id}'
 - Deletes a specified question using the id of the question
 - Request Arguments: id - integer
+```'/questions/21'```
 - Returns: 
 ```{
            'success': True,
            'removed_id': 1
 }
 ```
-If you are able to modify the frontend, you can have it remove the question using the id instead of refetching the questions. 
 
-### POST '/quizzes'
-- Sends a post request in order to get the next question 
-- Request Body: 
-{'previous_questions':  an array of question id's such as [1, 4, 20, 15]
-'quiz_category': a string of the current category }
-- Returns: a single new question object 
-```{
-    'question': {
-        'id': 1,
-        'question': 'This is a question',
-        'answer': 'This is an answer', 
-        'difficulty': 5,
-        'category': 4
-    }
-}
-```
+
 
 ### POST '/questions'
 - Sends a post request in order to add a new question
@@ -229,7 +218,6 @@ If you are able to modify the frontend, you can have it remove the question usin
     'category': 3,
 }
 ```
-
 - Returns: Does not return any new data
 
 ### POST '/questions'
@@ -256,4 +244,4 @@ If you are able to modify the frontend, you can have it remove the question usin
 ```
 
 ## Authors
-Mostly written by Udacity teachers. Brought togethe by Katharina Kern.
+Mostly written by Udacity teachers. Brought together by Katharina Kern.
